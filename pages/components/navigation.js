@@ -2,7 +2,6 @@
 import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
-import Image from 'Next/Image';
 
 
 const navigation = [
@@ -22,7 +21,7 @@ export default function Navigation() {
             <div className="flex items-center justify-between w-full md:w-auto">
               <a href="#">
                 <span className="sr-only">Workflow</span>
-                <Image
+                <img
                   className="md:lg:h-20 w-auto h-16 sm:w-auto"
                   src="/logo.png"
                   width="100"
@@ -66,7 +65,7 @@ export default function Navigation() {
           <div className="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
             <div className="px-5 pt-4 flex items-center justify-between">
               <div>
-                <Image
+                <img
                   className="h-8 w-auto"
                   src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
                   alt=""

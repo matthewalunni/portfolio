@@ -1,5 +1,3 @@
-import Image from 'Next/Image';
-
 const cardDetails = [
     {
         imageURL: "laser.png",
@@ -25,7 +23,7 @@ function Card(key, imageURL, title, description, buttonPath) {
     return (
         <div key={key} className="h-fit sm:mx-10 p-5 bg-white rounded-xl mt-6 flex">
             <div className="h-fit grid-rows-4 w-full">
-                <Image
+                <img
                     className="p-0 h-48 w-full object-contain mx-auto rounded-xl md:border-white md:border-solid md:border-4"
                     src={'/' + imageURL}
                     width="284"
