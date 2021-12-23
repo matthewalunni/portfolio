@@ -1,3 +1,5 @@
+import { prefix } from '../../prefix';
+
 const cardDetails = [
     {
         imageURL: "laser.png",
@@ -25,7 +27,7 @@ function Card(key, imageURL, title, description, buttonPath) {
             <div className="h-fit grid-rows-4 w-full">
                 <img
                     className="p-0 h-48 w-full object-contain mx-auto rounded-xl md:border-white md:border-solid md:border-4"
-                    src={'/' + imageURL}
+                    src={prefix + '/' + imageURL}
                     width="284"
                     height="192"
                     alt = ""/>

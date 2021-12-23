@@ -2,7 +2,7 @@
 import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
-
+import { prefix } from '../../prefix';
 
 const navigation = [
   { name: 'Home', href: '#home' },
@@ -23,7 +23,7 @@ export default function Navigation() {
                 <span className="sr-only">Workflow</span>
                 <img
                   className="md:lg:h-20 w-auto h-16 sm:w-auto"
-                  src="/logo.png"
+                  src={prefix + "/logo.png"}
                   width="100"
                   height="70"
                   alt=""
