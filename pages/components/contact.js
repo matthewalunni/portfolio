@@ -21,7 +21,7 @@ export default function Contact() {
                             <h1 className="text-4xl tracking-tight font-extrabold text-gray-800 sm:text-5xl md:text-6xl">
                                 <span className="block xl:inline">Get in touch.</span>
                             </h1>
-                            <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg  sm:mx-auto md:mt-5 md:text-xl lg:mx-auto">Have a question or want to work together? I'd love to hear from you.</p>
+                            <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg  sm:mx-auto md:mt-5 md:text-xl lg:mx-auto">Have a question or want to work together? I&apos;d love to hear from you.</p>
                             <div className="content-center mx-auto mt-6 flex justify-center h-2/3">
                                 <button onClick={email.bind()} className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded w-1/2">
                                     Reach Out

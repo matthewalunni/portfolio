@@ -1,3 +1,5 @@
+import Image from 'Next/Image';
+
 const cardDetails = [
     {
         imageURL: "laser.png",
@@ -23,9 +25,12 @@ function Card(key, imageURL, title, description, buttonPath) {
     return (
         <div key={key} className="h-fit sm:mx-10 p-5 bg-white rounded-xl mt-6 flex">
             <div className="h-fit grid-rows-4 w-full">
-                <img
-                    className="p-0 h-48 object-cover mx-auto rounded-xl md:border-white md:border-solid md:border-4"
-                    src={imageURL} />
+                <Image
+                    className="p-0 h-48 w-full object-contain mx-auto rounded-xl md:border-white md:border-solid md:border-4"
+                    src={'/' + imageURL}
+                    width="284"
+                    height="192"
+                    alt = ""/>
                 <h1 className="p-1 h-fit text-xl text-center font-semibold text-black">{title}</h1>
                 <p className="p-5 h-fit text-grey-dark text-center font-thin text-sm leading-normal md:text-black">
                     {description}
@@ -34,6 +39,7 @@ function Card(key, imageURL, title, description, buttonPath) {
                     href={buttonPath}
                     className="h-fit w-full flex items-center justify-center px-3 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
                     target="_blank"
+                    rel="noreferrer"
                 >
                     See More
                 </a>

@@ -13,8 +13,8 @@ export default function About() {
                             </h1>
 
                             <p className="mt-3 text-base text-white sm:mt-5 sm:text-lg  sm:mx-auto md:mt-5 md:text-xl lg:mx-auto">
-                                I'm a software engineer with a passion for learning and building things. 
-                                I have completed a Bachelor of Computer Science and Business, I'm currently working on my &nbsp;
+                                I&apos;m a software engineer with a passion for learning and building things. 
+                                I have completed a Bachelor of Computer Science and Business, I&apos;m currently working on my &nbsp;
                                 <a  className="text-indigo-900 hover:text-indigo-700"
                                     href="https://www.eng.mcmaster.ca/sept/programs/degree-options/mengdesign/engineering-design" 
                                     target="_blank" 
