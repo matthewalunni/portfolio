@@ -1,22 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Matthew Alunni - Portfolio
 
-## Getting Started
+A modern portfolio website built with Astro, showcasing my work as a developer, designer, and creator. Remotely from Canada, with 6+ years of experience in software development.
 
-First, run the development server:
+## Tech Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- **Framework:** Astro
+- **Styling:** CSS (with custom properties and themes)
+- **Content Management:** Astro Content Collections
+- **Deployment:** Static site generation
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🧞 Commands
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+All commands are run from the root of the project, from a terminal:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Features
 
-## Viewing the Project
-- https://matthewalunni.github.io/portfolio/
+- **Responsive Design:** Optimized for all devices
+- **Dark/Light Theme Toggle:** Built-in theme switching
+- **Portfolio Showcase:** Featured work projects with detailed pages
+- **Skills Section:** Highlighting technical expertise
+- **Contact Integration:** Easy ways to get in touch
+
+## Development
+
+This project is built with Astro for fast, static site generation.
+
+## 👀 Want to learn more about Astro?
+
+Feel free to check [Astro's documentation](https://docs.astro.build) or join the [Astro Discord server](https://astro.build/chat).

@@ -1,0 +1,129 @@
+---
+import ContactCTA from '../components/ContactCTA.astro';
+import Hero from '../components/Hero.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="About | Matthew Alunni" description="About Matthew Alunni, Full Stack Engineer">
+	<div class="stack gap-20">
+		<main class="wrapper about">
+			<Hero
+				title="About"
+				tagline="Thanks for stopping by. Read below to learn more about myself and my background."
+			>
+				<img
+					width="1553"
+					height="873"
+					src="/assets/portrait.jpg"
+					alt="Matthew Alunni at work with a colleague"
+				/>
+			</Hero>
+
+			<section>
+				<h2 class="section-title">Background</h2>
+				<div class="content">
+					<p>
+                        I'm a software engineer with a passion for learning and building things. I have completed a Bachelor of Computer Science and Business, I am a <a href="https://www.eng.mcmaster.ca/sept/programs/degree-options/mengdesign/engineering-design">Masters of Engineering Design at McMaster University</a> graduate, where I specialized in Design Thinking, IoT, Human-Centered Design, Robotics and Automation, Mobile Application Development, and more.
+						I have work experience in IT, cybersecurity, and full-stack software development.
+					</p>
+				</div>
+			</section>
+			<section>
+				<h2 class="section-title">Experience</h2>
+				<div class="content">
+					<p><strong>Software Engineer - PostGrid (Jan 2025 - Present)</strong></p>
+					<ul>
+						<li>Designed, built, and scaled end-to-end product features using the MERN stack, AWS services, and Docker—covering data models, API layers, and UI workflows for mail campaign dashboards and automation tooling.</li>
+						<li>Developed high-reliability integrations with external APIs, strengthening platform extensibility and improving customer onboarding and throughput.</li>
+						<li>Collaborated cross-functionally with Sales and Customer Success to align technical priorities with enterprise customer requirements and roadmap impact.</li>
+					</ul>
+					<p><strong>Software Developer - Montrium (Jan 2023 - Jan 2025)</strong></p>
+					<ul>
+						<li>Designed and implemented user and identity management capabilities for the Montrium SaaS platform using Azure AD, .NET Core, and React (TypeScript), reducing identity-related support requests by 30%.</li>
+						<li>Built a robust automated testing framework with Jest and Selenium, reducing test cycle time by 30% while maintaining a 95% pass rate and 80% coverage across critical workflows.</li>
+					</ul>
+					<p><strong>Senior Software Developer - KPMG (Contract, Sept 2022 - Dec 2022)</strong></p>
+					<ul>
+						<li>Insurance and Benefits Portal: Collaborated with project managers to develop full-stack features using React (TypeScript), Express.js, and Azure, contributing to the design, development, and deployment of the portal.</li>
+						<li>NLP Automation: Built Python-based pipelines using Pandas, NLTK, and Spacy to automate document review processes, enabling scalable data processing and improving operational efficiency.</li>
+					</ul>
+				</div>
+			</section>
+			<section>
+				<h2 class="section-title">Education</h2>
+				<div class="content">
+					<p><strong>Master of Engineering Design — Product Design</strong>, McMaster University — GPA: 4.00</p>
+					<p>Coursework: Neural Networks; Machine Learning; IoT; Rapid Prototyping; Advanced Robotics and Automation</p>
+					<p><strong>Bachelor of Computing and Business</strong>, Brock University</p>
+					<p>Coursework: Data Structures and Algorithms; Databases; AI; OOP; Software Engineering; Networking</p>
+				</div>
+			</section>
+			<section>
+				<h2 class="section-title">Skills</h2>
+				<div class="content">
+					<p>JavaScript, TypeScript, Python, C#, SQL, HTML, CSS, React, MUI, Tailwind, Next.js, Node.js, Express.js, Django, .NET Core, Material UI, AWS, Azure, Docker, CI/CD, MongoDB, PostgreSQL, Jest, Selenium, REST APIs, microservices, authentication, design systems, Git, Figma, PyInstaller, Kivy, prototyping</p>
+				</div>
+			</section>
+		</main>
+
+		<ContactCTA />
+	</div>
+</BaseLayout>
+
+<style>
+	.about {
+		display: flex;
+		flex-direction: column;
+		gap: 3.5rem;
+	}
+
+	img {
+		margin-top: 1.5rem;
+		border-radius: 1.5rem;
+		box-shadow: var(--shadow-md);
+	}
+
+	section {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		color: var(--gray-200);
+	}
+
+	.section-title {
+		grid-column-start: 1;
+		font-size: var(--text-xl);
+		color: var(--gray-0);
+	}
+
+	.content {
+		grid-column: 2 / 4;
+	}
+
+	.content :global(a) {
+		text-decoration: 1px solid underline transparent;
+		text-underline-offset: 0.25em;
+		transition: text-decoration-color var(--theme-transition);
+	}
+
+	.content :global(a:hover),
+	.content :global(a:focus) {
+		text-decoration-color: currentColor;
+	}
+
+	@media (min-width: 50em) {
+		.about {
+			display: grid;
+			grid-template-columns: 1fr 60% 1fr;
+		}
+
+		.about > :global(:first-child) {
+			grid-column-start: 2;
+		}
+
+		section {
+			display: contents;
+			font-size: var(--text-lg);
+		}
+	}
+</style>
