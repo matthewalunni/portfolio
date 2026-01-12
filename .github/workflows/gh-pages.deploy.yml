@@ -1,22 +1,19 @@
 name: Deploy to GitHub Pages
 
-
 on:
   push:
     branches: [main]
-
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    env: 
-       NEXT_PUBLIC_BASE_PATH: /portfolio
+    env:
+      NEXT_PUBLIC_BASE_PATH: /portfolio
 
     strategy:
       matrix:
-        node-version: [14.x]
-
+        node-version: [25.x]
 
     steps:
       - name: Get files
@@ -38,3 +35,4 @@ jobs:
         with:
           branch: gh-pages
           folder: out
+
