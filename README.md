@@ -33,7 +33,3 @@ All commands are run from the root of the project, from a terminal:
 ## Development
 
 This project is built with Astro for fast, static site generation.
-
-## 👀 Want to learn more about Astro?
-
-Feel free to check [Astro's documentation](https://docs.astro.build) or join the [Astro Discord server](https://astro.build/chat).
