@@ -33,3 +33,6 @@ All commands are run from the root of the project, from a terminal:
 ## Development
 
 This project is built with Astro for fast, static site generation.
+
+## Viewing the Portfolio
+- https://matthewalunni.github.io/portfolio/
