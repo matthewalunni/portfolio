@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <!-- Folder back -->
+  <path d="M4 12h16l4-4h20a2 2 0 012 2v28a2 2 0 01-2 2H4a2 2 0 01-2-2V14a2 2 0 012-2z" fill="#f5d742"/>
+
+  <!-- Folder front -->
+  <path d="M2 16h44v24a2 2 0 01-2 2H4a2 2 0 01-2-2V16z" fill="#ffc107"/>
+
+  <!-- Folder shadow -->
+  <path d="M2 16h44v3H2z" fill="rgba(0,0,0,0.1)"/>
+</svg>

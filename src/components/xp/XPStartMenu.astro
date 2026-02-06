@@ -1,0 +1,206 @@
+---
+interface MenuItem {
+  id: string;
+  label: string;
+  icon: string;
+  windowId?: string;
+  action?: string;
+}
+
+interface Props {
+  userName?: string;
+  avatarUrl?: string;
+  leftItems?: MenuItem[];
+  rightItems?: MenuItem[];
+}
+
+const {
+  userName = 'Matthew',
+  avatarUrl,
+  leftItems = [],
+  rightItems = [],
+} = Astro.props;
+
+const baseUrl = import.meta.env.BASE_URL;
+const defaultAvatar = `${baseUrl}/assets/xp/user.svg`;
+---
+
+<div class="xp-startmenu" id="start-menu" role="menu" aria-label="Start menu">
+  <div class="xp-startmenu__header">
+    <img
+      class="xp-startmenu__avatar"
+      src={avatarUrl || defaultAvatar}
+      alt=""
+    />
+    <span class="xp-startmenu__username">{userName}</span>
+  </div>
+
+  <div class="xp-startmenu__body">
+    <div class="xp-startmenu__left">
+      {leftItems.map((item) => (
+        <button
+          class="xp-startmenu__item"
+          data-window-id={item.windowId}
+          data-action={item.action}
+          role="menuitem"
+        >
+          <img
+            class="xp-startmenu__item-icon"
+            src={`${baseUrl}${item.icon}`}
+            alt=""
+          />
+          <span class="xp-startmenu__item-text">{item.label}</span>
+        </button>
+      ))}
+
+      <div class="xp-startmenu__separator"></div>
+
+      <button class="xp-startmenu__item xp-startmenu__item--all-programs" data-action="all-programs" role="menuitem">
+        <span class="xp-startmenu__item-text">All Programs</span>
+        <span class="xp-startmenu__arrow">▸</span>
+      </button>
+    </div>
+
+    <div class="xp-startmenu__right">
+      {rightItems.map((item) => (
+        <button
+          class="xp-startmenu__item"
+          data-window-id={item.windowId}
+          data-action={item.action}
+          role="menuitem"
+        >
+          <img
+            class="xp-startmenu__item-icon"
+            src={`${baseUrl}${item.icon}`}
+            alt=""
+          />
+          <span class="xp-startmenu__item-text">{item.label}</span>
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div class="xp-startmenu__footer">
+    <button class="xp-startmenu__footer-btn" data-action="log-off">
+      <svg class="xp-startmenu__footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"></path>
+        <polyline points="16,17 21,12 16,7"></polyline>
+        <line x1="21" y1="12" x2="9" y2="12"></line>
+      </svg>
+      Log Off
+    </button>
+    <button class="xp-startmenu__footer-btn" data-action="shutdown">
+      <svg class="xp-startmenu__footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="2" x2="12" y2="6"></line>
+      </svg>
+      Turn Off Computer
+    </button>
+  </div>
+</div>
+
+<script>
+  function initStartMenu() {
+    const startMenu = document.getElementById('start-menu');
+    const menuItems = startMenu?.querySelectorAll('.xp-startmenu__item');
+
+    menuItems?.forEach((item) => {
+      item.addEventListener('click', () => {
+        const windowId = (item as HTMLElement).dataset.windowId;
+        const action = (item as HTMLElement).dataset.action;
+
+        if (windowId) {
+          window.dispatchEvent(new CustomEvent('xp:window:open', {
+            detail: { windowId }
+          }));
+          window.dispatchEvent(new CustomEvent('xp:startmenu:close'));
+        } else if (action) {
+          window.dispatchEvent(new CustomEvent(`xp:action:${action}`));
+        }
+      });
+    });
+
+    // Handle log off and shutdown buttons
+    const logOffBtn = startMenu?.querySelector('[data-action="log-off"]');
+    const shutdownBtn = startMenu?.querySelector('[data-action="shutdown"]');
+
+    logOffBtn?.addEventListener('click', () => {
+      handleLogOff();
+    });
+
+    shutdownBtn?.addEventListener('click', () => {
+      handleShutdown();
+    });
+  }
+
+  function handleLogOff() {
+    // Close start menu
+    window.dispatchEvent(new CustomEvent('xp:startmenu:close'));
+
+    // Create and show log off screen
+    const overlay = document.createElement('div');
+    overlay.className = 'xp-shutdown-overlay';
+    overlay.innerHTML = `
+      <div class="xp-shutdown-screen xp-shutdown-screen--logoff">
+        <div class="xp-shutdown-content">
+          <div class="xp-shutdown-spinner"></div>
+          <div class="xp-shutdown-text">Logging off...</div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    // Animate in
+    requestAnimationFrame(() => {
+      overlay.classList.add('xp-shutdown-overlay--active');
+    });
+
+    // Reboot after animation
+    setTimeout(() => {
+      location.reload();
+    }, 2000);
+  }
+
+  function handleShutdown() {
+    // Close start menu
+    window.dispatchEvent(new CustomEvent('xp:startmenu:close'));
+
+    // Create and show shutdown screen
+    const overlay = document.createElement('div');
+    overlay.className = 'xp-shutdown-overlay';
+    overlay.innerHTML = `
+      <div class="xp-shutdown-screen xp-shutdown-screen--shutdown">
+        <div class="xp-shutdown-content">
+          <div class="xp-shutdown-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+            </svg>
+          </div>
+          <div class="xp-shutdown-text">Windows is shutting down...</div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    // Animate in
+    requestAnimationFrame(() => {
+      overlay.classList.add('xp-shutdown-overlay--active');
+    });
+
+    // Black screen then reboot
+    setTimeout(() => {
+      overlay.classList.add('xp-shutdown-overlay--fadeout');
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
+    }, 2000);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initStartMenu);
+  } else {
+    initStartMenu();
+  }
+</script>

@@ -1,0 +1,153 @@
+---
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<div class="xp-taskbar" role="navigation" aria-label="Taskbar">
+  <button
+    class="xp-start-btn"
+    id="start-button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-controls="start-menu"
+  >
+    <svg class="xp-start-btn__logo" viewBox="0 0 24 24" fill="none">
+      <!-- Windows flag simplified -->
+      <rect x="2" y="2" width="9" height="9" fill="#ff0000" rx="1"/>
+      <rect x="13" y="2" width="9" height="9" fill="#00ff00" rx="1"/>
+      <rect x="2" y="13" width="9" height="9" fill="#0000ff" rx="1"/>
+      <rect x="13" y="13" width="9" height="9" fill="#ffff00" rx="1"/>
+    </svg>
+    <span>start</span>
+  </button>
+
+  <div class="xp-taskbar__buttons" id="taskbar-buttons">
+    <!-- Taskbar buttons will be dynamically added here -->
+  </div>
+
+  <div class="xp-taskbar__tray">
+    <div class="xp-taskbar__clock" id="taskbar-clock" title="Click to see date">
+      --:--
+    </div>
+  </div>
+</div>
+
+<script>
+  function initTaskbar() {
+    const startButton = document.getElementById('start-button');
+    const startMenu = document.getElementById('start-menu');
+    const taskbarButtons = document.getElementById('taskbar-buttons');
+    const clock = document.getElementById('taskbar-clock');
+
+    // Start menu toggle
+    startButton?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = startMenu?.classList.contains('xp-startmenu--open');
+      if (isOpen) {
+        startMenu?.classList.remove('xp-startmenu--open');
+        startButton?.setAttribute('aria-expanded', 'false');
+      } else {
+        startMenu?.classList.add('xp-startmenu--open');
+        startButton?.setAttribute('aria-expanded', 'true');
+      }
+      window.dispatchEvent(new CustomEvent('xp:sound:play', { detail: { sound: 'click' } }));
+    });
+
+    // Close start menu when clicking outside
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (!startMenu?.contains(target) && !startButton?.contains(target)) {
+        startMenu?.classList.remove('xp-startmenu--open');
+        startButton?.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Listen for start menu close event
+    window.addEventListener('xp:startmenu:close', () => {
+      startMenu?.classList.remove('xp-startmenu--open');
+      startButton?.setAttribute('aria-expanded', 'false');
+    });
+
+    // Update clock
+    function updateClock() {
+      if (clock) {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const displayHours = hours % 12 || 12;
+        clock.textContent = `${displayHours}:${minutes} ${ampm}`;
+        clock.title = now.toLocaleDateString('en-US', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+      }
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // Listen for window state changes to update taskbar
+    window.addEventListener('xp:windows:update', ((e: CustomEvent) => {
+      const windows = e.detail.windows;
+      if (!taskbarButtons) return;
+
+      taskbarButtons.innerHTML = '';
+
+      windows.forEach((win: any) => {
+        if (!win.isOpen) return;
+
+        const btn = document.createElement('button');
+        btn.className = 'xp-taskbar-btn';
+        if (win.isFocused && !win.isMinimized) {
+          btn.classList.add('xp-taskbar-btn--active');
+        }
+        btn.dataset.windowId = win.id;
+        btn.title = win.title;
+
+        if (win.icon) {
+          const icon = document.createElement('img');
+          icon.className = 'xp-taskbar-btn__icon';
+          icon.src = win.icon;
+          icon.alt = '';
+          btn.appendChild(icon);
+        }
+
+        const text = document.createElement('span');
+        text.className = 'xp-taskbar-btn__text';
+        text.textContent = win.title;
+        btn.appendChild(text);
+
+        btn.addEventListener('click', () => {
+          window.dispatchEvent(new CustomEvent('xp:taskbar:click', {
+            detail: { windowId: win.id }
+          }));
+        });
+
+        taskbarButtons.appendChild(btn);
+      });
+    }) as EventListener);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTaskbar);
+  } else {
+    initTaskbar();
+  }
+</script>
+
+<style>
+  /* Start button pressed state when menu is open */
+  :global(.xp-startmenu--open) ~ .xp-taskbar .xp-start-btn,
+  .xp-start-btn[aria-expanded="true"] {
+    background: linear-gradient(
+      180deg,
+      #4ca84c 0%,
+      #3c9e3c 10%,
+      #288828 50%,
+      #205020 90%,
+      #184018 100%
+    );
+  }
+</style>

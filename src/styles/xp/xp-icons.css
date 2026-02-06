@@ -1,0 +1,159 @@
+/* Windows XP Desktop Icon Styles */
+
+.xp-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 75px;
+  padding: 4px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.xp-icon:hover {
+  background: rgba(100, 150, 200, 0.25);
+  border-color: rgba(100, 150, 200, 0.4);
+}
+
+.xp-icon:focus {
+  background: rgba(100, 150, 200, 0.35);
+  border-color: rgba(100, 150, 200, 0.6);
+  outline: none;
+}
+
+.xp-icon--selected {
+  background: rgba(100, 150, 200, 0.35);
+  border-color: rgba(100, 150, 200, 0.6);
+}
+
+.xp-icon__image {
+  width: var(--xp-icon-size);
+  height: var(--xp-icon-size);
+  margin-bottom: 4px;
+  image-rendering: auto;
+  pointer-events: none;
+}
+
+.xp-icon__label {
+  font-size: 11px;
+  color: var(--xp-text-light);
+  text-shadow:
+    1px 1px 2px rgba(0, 0, 0, 0.9),
+    -1px -1px 2px rgba(0, 0, 0, 0.9),
+    1px -1px 2px rgba(0, 0, 0, 0.9),
+    -1px 1px 2px rgba(0, 0, 0, 0.9);
+  word-wrap: break-word;
+  line-height: 1.2;
+  max-width: 100%;
+}
+
+/* Explorer file icons */
+.xp-file-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+  padding: 6px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.xp-file-icon:hover {
+  background: rgba(100, 150, 200, 0.15);
+  border-color: rgba(100, 150, 200, 0.3);
+}
+
+.xp-file-icon:focus {
+  background: var(--xp-selection-bg);
+  border-color: var(--xp-selection-bg);
+  outline: none;
+}
+
+.xp-file-icon:focus .xp-file-icon__label {
+  color: var(--xp-selection-text);
+  text-shadow: none;
+}
+
+.xp-file-icon--selected {
+  background: var(--xp-selection-bg);
+  border-color: var(--xp-selection-bg);
+}
+
+.xp-file-icon--selected .xp-file-icon__label {
+  color: var(--xp-selection-text);
+  text-shadow: none;
+}
+
+.xp-file-icon__image {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 4px;
+  pointer-events: none;
+}
+
+.xp-file-icon__label {
+  font-size: 11px;
+  color: var(--xp-text-dark);
+  word-wrap: break-word;
+  line-height: 1.2;
+  max-width: 100%;
+}
+
+/* Explorer list view icons */
+.xp-list-icon {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 6px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 2px;
+}
+
+.xp-list-icon:hover {
+  background: rgba(100, 150, 200, 0.15);
+}
+
+.xp-list-icon:focus,
+.xp-list-icon--selected {
+  background: var(--xp-selection-bg);
+  outline: none;
+}
+
+.xp-list-icon:focus .xp-list-icon__label,
+.xp-list-icon--selected .xp-list-icon__label {
+  color: var(--xp-selection-text);
+}
+
+.xp-list-icon__image {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.xp-list-icon__label {
+  font-size: 11px;
+  color: var(--xp-text-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Icon grid for explorer */
+.xp-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 4px;
+  padding: 8px;
+}
+
+/* Icon list for explorer */
+.xp-icon-list {
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+}

@@ -1,0 +1,202 @@
+---
+import XPWindow from '../xp/XPWindow.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<XPWindow
+  id="about"
+  title="About - Notepad"
+  icon="/assets/xp/notepad.svg"
+  width={650}
+  height={500}
+  x={200}
+  y={60}
+  isOpen={false}
+>
+  <div class="about-content">
+    <div class="about-header">
+      <img
+        src={`${baseUrl}/assets/portrait.jpg`}
+        alt="Matthew Alunni"
+        class="about-photo"
+      />
+      <div class="about-intro">
+        <h1>Matthew Alunni</h1>
+        <p class="title">Software Engineer</p>
+        <p class="location">Canada</p>
+      </div>
+    </div>
+
+    <section>
+      <h2>Background</h2>
+      <p>
+        I'm a software engineer with a passion for learning and building things. I have completed a Bachelor of Computer Science and Business, and I am a Master of Engineering Design graduate from McMaster University, where I specialized in Design Thinking, IoT, Human-Centered Design, Robotics and Automation, Mobile Application Development, and more. I have work experience in IT, cybersecurity, and full-stack software development.
+      </p>
+    </section>
+
+    <section>
+      <h2>Experience</h2>
+
+      <div class="experience-item">
+        <h3>Software Engineer - PostGrid</h3>
+        <p class="date">Jan 2025 - Present</p>
+        <ul>
+          <li>Designed, built, and scaled end-to-end product features using the MERN stack, AWS services, and Docker</li>
+          <li>Developed high-reliability integrations with external APIs, strengthening platform extensibility</li>
+          <li>Collaborated cross-functionally with Sales and Customer Success teams</li>
+        </ul>
+      </div>
+
+      <div class="experience-item">
+        <h3>Software Developer - Montrium</h3>
+        <p class="date">Jan 2023 - Jan 2025</p>
+        <ul>
+          <li>Designed and implemented user and identity management capabilities using Azure AD, .NET Core, and React</li>
+          <li>Built automated testing framework with Jest and Selenium, reducing test cycle time by 30%</li>
+        </ul>
+      </div>
+
+      <div class="experience-item">
+        <h3>Senior Software Developer - KPMG (Contract)</h3>
+        <p class="date">Sept 2022 - Dec 2022</p>
+        <ul>
+          <li>Developed full-stack features for Insurance and Benefits Portal using React, Express.js, and Azure</li>
+          <li>Built NLP automation pipelines using Python, Pandas, NLTK, and Spacy</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <p><strong>Master of Engineering Design — Product Design</strong><br/>
+      McMaster University — GPA: 4.00<br/>
+      <em>Coursework: Neural Networks, Machine Learning, IoT, Rapid Prototyping, Advanced Robotics</em></p>
+
+      <p><strong>Bachelor of Computing and Business</strong><br/>
+      Brock University<br/>
+      <em>Coursework: Data Structures, Algorithms, Databases, AI, OOP, Software Engineering</em></p>
+    </section>
+
+    <section>
+      <h2>Skills</h2>
+      <div class="skills-list">
+        <span class="skill">JavaScript</span>
+        <span class="skill">TypeScript</span>
+        <span class="skill">Python</span>
+        <span class="skill">C#</span>
+        <span class="skill">React</span>
+        <span class="skill">Node.js</span>
+        <span class="skill">.NET Core</span>
+        <span class="skill">AWS</span>
+        <span class="skill">Azure</span>
+        <span class="skill">Docker</span>
+        <span class="skill">MongoDB</span>
+        <span class="skill">PostgreSQL</span>
+        <span class="skill">REST APIs</span>
+        <span class="skill">Git</span>
+        <span class="skill">Figma</span>
+      </div>
+    </section>
+  </div>
+</XPWindow>
+
+<style>
+  .about-content {
+    font-family: var(--xp-font-system);
+  }
+
+  .about-header {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #d4d0c8;
+  }
+
+  .about-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 4px;
+    object-fit: cover;
+    border: 2px solid #d4d0c8;
+  }
+
+  .about-intro h1 {
+    margin: 0 0 4px 0;
+    font-size: 20px;
+    color: #003399;
+  }
+
+  .about-intro .title {
+    margin: 0;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .about-intro .location {
+    margin: 4px 0 0 0;
+    color: #666;
+    font-size: 11px;
+  }
+
+  section {
+    margin-bottom: 20px;
+  }
+
+  section h2 {
+    font-size: 14px;
+    color: #003399;
+    margin: 0 0 10px 0;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #d4d0c8;
+  }
+
+  section p {
+    margin: 0 0 10px 0;
+    line-height: 1.5;
+  }
+
+  .experience-item {
+    margin-bottom: 16px;
+  }
+
+  .experience-item h3 {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0 0 2px 0;
+    color: #333;
+  }
+
+  .experience-item .date {
+    font-size: 11px;
+    color: #666;
+    font-style: italic;
+    margin: 0 0 6px 0;
+  }
+
+  .experience-item ul {
+    margin: 0 0 0 20px;
+    padding: 0;
+  }
+
+  .experience-item li {
+    font-size: 11px;
+    line-height: 1.4;
+    margin-bottom: 4px;
+  }
+
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .skill {
+    background: #e8e8e0;
+    padding: 2px 8px;
+    border: 1px solid #d4d0c8;
+    font-size: 11px;
+    border-radius: 2px;
+  }
+</style>

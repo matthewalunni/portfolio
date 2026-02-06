@@ -1,0 +1,123 @@
+/* Windows XP Button Styles */
+
+.xp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 23px;
+  min-width: 75px;
+  padding: 0 12px;
+  background: var(--xp-button-face);
+  border: 1px solid;
+  border-color: var(--xp-button-highlight) var(--xp-button-dark-shadow) var(--xp-button-dark-shadow) var(--xp-button-highlight);
+  border-radius: 3px;
+  font-family: var(--xp-font-system);
+  font-size: 11px;
+  color: var(--xp-text-dark);
+  cursor: pointer;
+  position: relative;
+}
+
+.xp-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid;
+  border-color: #ffffff #aca899 #aca899 #ffffff;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.xp-btn:hover {
+  background: linear-gradient(
+    180deg,
+    #f0f0ea 0%,
+    #e8e8e0 100%
+  );
+}
+
+.xp-btn:active {
+  background: #e0e0d8;
+  border-color: var(--xp-button-dark-shadow) var(--xp-button-highlight) var(--xp-button-highlight) var(--xp-button-dark-shadow);
+}
+
+.xp-btn:active::before {
+  border-color: #aca899 #ffffff #ffffff #aca899;
+}
+
+.xp-btn:focus {
+  outline: none;
+}
+
+.xp-btn:focus::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 1px dotted var(--xp-text-dark);
+  pointer-events: none;
+}
+
+.xp-btn--primary {
+  border-color: var(--xp-blue-dark);
+}
+
+.xp-btn--primary::before {
+  border-color: #4080d0 #2060a0 #2060a0 #4080d0;
+}
+
+.xp-btn:disabled {
+  color: var(--xp-text-disabled);
+  cursor: default;
+}
+
+.xp-btn:disabled:hover {
+  background: var(--xp-button-face);
+}
+
+/* Link styled as XP hyperlink */
+.xp-link {
+  color: #0066cc;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.xp-link:hover {
+  color: #0044aa;
+  text-decoration: underline;
+}
+
+.xp-link:active {
+  color: #cc0000;
+}
+
+/* Explorer toolbar button */
+.xp-toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 22px;
+  padding: 0 6px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  font-size: 11px;
+  color: var(--xp-text-dark);
+  cursor: pointer;
+}
+
+.xp-toolbar-btn:hover {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: var(--xp-button-highlight) var(--xp-button-shadow) var(--xp-button-shadow) var(--xp-button-highlight);
+}
+
+.xp-toolbar-btn:active {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: var(--xp-button-shadow) var(--xp-button-highlight) var(--xp-button-highlight) var(--xp-button-shadow);
+}
+
+.xp-toolbar-btn__icon {
+  width: 16px;
+  height: 16px;
+}

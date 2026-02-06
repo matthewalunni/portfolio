@@ -1,0 +1,206 @@
+/* Windows XP Explorer Styles */
+
+/* Explorer toolbar */
+.xp-explorer-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 4px;
+  background: linear-gradient(
+    180deg,
+    #f8f8f6 0%,
+    #e8e8e0 100%
+  );
+  border-bottom: 1px solid var(--xp-button-shadow);
+}
+
+.xp-explorer-toolbar__separator {
+  width: 1px;
+  height: 20px;
+  background: var(--xp-button-shadow);
+  margin: 0 4px;
+}
+
+/* Address bar */
+.xp-explorer-addressbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  background: var(--xp-button-face);
+  border-bottom: 1px solid var(--xp-button-shadow);
+}
+
+.xp-explorer-addressbar__label {
+  font-size: 11px;
+  color: var(--xp-text-dark);
+  white-space: nowrap;
+}
+
+.xp-explorer-addressbar__input {
+  flex: 1;
+  height: 20px;
+  padding: 0 4px;
+  background: #ffffff;
+  border: 1px solid;
+  border-color: var(--xp-button-shadow) var(--xp-button-highlight) var(--xp-button-highlight) var(--xp-button-shadow);
+  font-size: 11px;
+  font-family: var(--xp-font-system);
+}
+
+.xp-explorer-addressbar__input:focus {
+  outline: none;
+  border-color: var(--xp-blue-medium);
+}
+
+/* Breadcrumb navigation */
+.xp-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  font-size: 11px;
+  color: var(--xp-text-dark);
+  background: #ffffff;
+  border-bottom: 1px solid var(--xp-button-shadow);
+}
+
+.xp-breadcrumb__item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.xp-breadcrumb__item:hover {
+  text-decoration: underline;
+  color: var(--xp-blue-medium);
+}
+
+.xp-breadcrumb__separator {
+  color: var(--xp-text-disabled);
+}
+
+.xp-breadcrumb__icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Explorer sidebar */
+.xp-explorer-sidebar {
+  width: 200px;
+  background: linear-gradient(
+    90deg,
+    #d6e4f9 0%,
+    #c0d4f4 100%
+  );
+  border-right: 1px solid var(--xp-button-shadow);
+  padding: 8px;
+  flex-shrink: 0;
+}
+
+.xp-explorer-sidebar__section {
+  margin-bottom: 12px;
+}
+
+.xp-explorer-sidebar__title {
+  font-size: 11px;
+  font-weight: bold;
+  color: #1050a0;
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.xp-explorer-sidebar__item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  font-size: 11px;
+  color: var(--xp-text-dark);
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.xp-explorer-sidebar__item:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.xp-explorer-sidebar__item-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Explorer content area */
+.xp-explorer-content {
+  flex: 1;
+  background: #ffffff;
+  overflow: auto;
+}
+
+/* Folder task pane */
+.xp-task-pane {
+  background: linear-gradient(
+    180deg,
+    #d6e4f9 0%,
+    #b8cef4 100%
+  );
+  border-radius: 6px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.xp-task-pane__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  background: linear-gradient(
+    180deg,
+    #6090d0 0%,
+    #4070b8 100%
+  );
+  color: var(--xp-text-light);
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.xp-task-pane__header:hover {
+  background: linear-gradient(
+    180deg,
+    #70a0e0 0%,
+    #5080c8 100%
+  );
+}
+
+.xp-task-pane__body {
+  padding: 8px 10px;
+}
+
+.xp-task-pane__item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+  font-size: 11px;
+  color: #1050a0;
+  cursor: pointer;
+}
+
+.xp-task-pane__item:hover {
+  text-decoration: underline;
+}
+
+.xp-task-pane__item-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Explorer layout */
+.xp-explorer-layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}

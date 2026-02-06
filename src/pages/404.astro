@@ -1,8 +1,113 @@
 ---
-import Hero from '../components/Hero.astro';
-import BaseLayout from '../layouts/BaseLayout.astro';
+import XPLayout from '../layouts/XPLayout.astro';
+import XPDesktop from '../components/xp/XPDesktop.astro';
+import XPWindow from '../components/xp/XPWindow.astro';
+import XPTaskbar from '../components/xp/XPTaskbar.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title="Not Found" description="404 Error — this page was not found">
-	<Hero title="Page Not Found" tagline="Not found" />
-</BaseLayout>
+<XPLayout
+  title="404 - Page Not Found | Matthew Alunni"
+  description="The page you're looking for could not be found"
+>
+  <XPDesktop>
+    <XPWindow
+      slot="windows"
+      id="error-404"
+      title="Error"
+      width={400}
+      height={200}
+      x={400}
+      y={200}
+      isOpen={true}
+      showMaximize={false}
+      resizable={false}
+      contentClass="error-dialog"
+    >
+      <div class="error-content">
+        <div class="error-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="15" fill="#ff0000" stroke="#800000" stroke-width="2"/>
+            <text x="16" y="24" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold">✕</text>
+          </svg>
+        </div>
+        <div class="error-message">
+          <h2>404 - Page Not Found</h2>
+          <p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+          <div class="error-actions">
+            <a href={baseUrl || '/'} class="xp-btn" role="button">
+              OK
+            </a>
+          </div>
+        </div>
+      </div>
+    </XPWindow>
+
+    <XPTaskbar />
+  </XPDesktop>
+</XPLayout>
+
+<style>
+  .error-dialog {
+    padding: 0 !important;
+  }
+
+  .error-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    height: 100%;
+  }
+
+  .error-icon {
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .error-message {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .error-message h2 {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    color: var(--xp-text-dark);
+    font-family: var(--xp-font-system);
+  }
+
+  .error-message p {
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 0;
+    color: var(--xp-text-dark);
+  }
+
+  .error-actions {
+    margin-top: 8px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .error-actions .xp-btn {
+    text-decoration: none;
+    user-select: none;
+  }
+</style>
+
+<script>
+  // Ensure the error window is focused after page load
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const windowManager = (window as any).xpWindowManager;
+      if (windowManager) {
+        windowManager.focusWindow('error-404');
+      }
+    }, 100);
+  });
+</script>

@@ -1,0 +1,210 @@
+---
+import XPWindow from '../xp/XPWindow.astro';
+import { getCollection, render } from 'astro:content';
+
+const projects = await getCollection('work');
+const baseUrl = import.meta.env.BASE_URL;
+
+// Render all project content
+const renderedProjects = await Promise.all(
+  projects.map(async (project) => {
+    const { Content } = await render(project);
+    return { project, Content };
+  })
+);
+---
+
+{renderedProjects.map(({ project, Content }, index) => (
+  <XPWindow
+    id={`project-${project.id}`}
+    title={`${project.data.title} - Notepad`}
+    icon="/assets/xp/notepad.svg"
+    width={650}
+    height={480}
+    x={180 + index * 30}
+    y={70 + index * 20}
+    isOpen={false}
+  >
+    <div class="project-detail">
+      <div class="project-header">
+        <div class="project-title-area">
+          <h1>{project.data.title}</h1>
+          <div class="project-tags">
+            {project.data.tags.map((tag: string) => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+        </div>
+        <p class="project-description">{project.data.description}</p>
+      </div>
+
+      {project.data.img && (
+        <img
+          class="project-image"
+          src={`${baseUrl}${project.data.img}`}
+          alt={project.data.img_alt || ''}
+        />
+      )}
+
+      <div class="project-content">
+        <Content />
+      </div>
+    </div>
+  </XPWindow>
+))}
+
+<script>
+  function initProjectDetails() {
+    // Listen for project open events
+    window.addEventListener('xp:project:open', ((e: CustomEvent) => {
+      const projectId = e.detail.projectId;
+      window.dispatchEvent(new CustomEvent('xp:window:open', {
+        detail: { windowId: `project-${projectId}` }
+      }));
+    }) as EventListener);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initProjectDetails);
+  } else {
+    initProjectDetails();
+  }
+</script>
+
+<style>
+  .project-detail {
+    font-family: var(--xp-font-system);
+  }
+
+  .project-header {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #d4d0c8;
+  }
+
+  .project-title-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+
+  .project-title-area h1 {
+    font-size: 18px;
+    margin: 0;
+    color: #003399;
+  }
+
+  .project-tags {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    background: #e0e8f0;
+    padding: 2px 8px;
+    font-size: 10px;
+    border-radius: 2px;
+    color: #336;
+  }
+
+  .project-description {
+    margin: 0;
+    color: #666;
+    font-style: italic;
+  }
+
+  .project-image {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border: 1px solid #d4d0c8;
+    margin-bottom: 16px;
+  }
+
+  .project-content {
+    line-height: 1.6;
+  }
+
+  .project-content :global(h2),
+  .project-content :global(h3),
+  .project-content :global(h4),
+  .project-content :global(h5) {
+    color: #003399;
+    margin: 16px 0 8px 0;
+  }
+
+  .project-content :global(h2) { font-size: 16px; }
+  .project-content :global(h3) { font-size: 14px; }
+  .project-content :global(h4) { font-size: 13px; }
+  .project-content :global(h5) { font-size: 12px; }
+
+  .project-content :global(p) {
+    margin: 0 0 12px 0;
+  }
+
+  .project-content :global(ul),
+  .project-content :global(ol) {
+    margin: 0 0 12px 20px;
+    padding: 0;
+  }
+
+  .project-content :global(li) {
+    margin-bottom: 4px;
+  }
+
+  .project-content :global(pre) {
+    background: #f5f5f0;
+    padding: 8px;
+    overflow-x: auto;
+    font-size: 11px;
+    border: 1px solid #d4d0c8;
+    margin: 8px 0;
+  }
+
+  .project-content :global(code) {
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 11px;
+  }
+
+  .project-content :global(a) {
+    color: #0066cc;
+  }
+
+  .project-content :global(a:hover) {
+    text-decoration: underline;
+  }
+
+  .project-content :global(img) {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #d4d0c8;
+  }
+
+  .project-content :global(table) {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 12px 0;
+    font-size: 11px;
+  }
+
+  .project-content :global(th),
+  .project-content :global(td) {
+    border: 1px solid #d4d0c8;
+    padding: 6px 8px;
+    text-align: left;
+  }
+
+  .project-content :global(th) {
+    background: #f0f0ea;
+  }
+
+  .project-content :global(blockquote) {
+    margin: 12px 0;
+    padding: 8px 12px;
+    border-left: 3px solid #003399;
+    background: #f5f5f0;
+  }
+</style>

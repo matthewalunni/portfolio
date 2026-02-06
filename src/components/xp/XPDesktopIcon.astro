@@ -1,0 +1,93 @@
+---
+interface Props {
+  id: string;
+  label: string;
+  icon: string;
+  windowId: string;
+}
+
+const { id, label, icon, windowId } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<button
+  class="xp-icon"
+  data-icon-id={id}
+  data-window-id={windowId}
+  tabindex="0"
+  role="button"
+  aria-label={`Open ${label}`}
+>
+  <img
+    class="xp-icon__image"
+    src={`${baseUrl}${icon}`}
+    alt=""
+    draggable="false"
+  />
+  <span class="xp-icon__label">{label}</span>
+</button>
+
+<script>
+  function initDesktopIcons() {
+    const icons = document.querySelectorAll('.xp-icon');
+
+    icons.forEach((icon) => {
+      let clickCount = 0;
+      let clickTimer: number | null = null;
+
+      icon.addEventListener('click', (e) => {
+        clickCount++;
+
+        if (clickCount === 1) {
+          // Single click - select icon
+          icons.forEach(i => i.classList.remove('xp-icon--selected'));
+          icon.classList.add('xp-icon--selected');
+
+          clickTimer = window.setTimeout(() => {
+            clickCount = 0;
+          }, 300);
+        } else if (clickCount === 2) {
+          // Double click - open window
+          if (clickTimer) {
+            clearTimeout(clickTimer);
+            clickTimer = null;
+          }
+          clickCount = 0;
+
+          const windowId = (icon as HTMLElement).dataset.windowId;
+          if (windowId) {
+            window.dispatchEvent(new CustomEvent('xp:window:open', {
+              detail: { windowId }
+            }));
+          }
+        }
+      });
+
+      icon.addEventListener('keydown', (e) => {
+        if ((e as KeyboardEvent).key === 'Enter') {
+          const windowId = (icon as HTMLElement).dataset.windowId;
+          if (windowId) {
+            window.dispatchEvent(new CustomEvent('xp:window:open', {
+              detail: { windowId }
+            }));
+          }
+        }
+      });
+    });
+
+    // Click on desktop to deselect icons
+    document.querySelector('.xp-desktop')?.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.classList.contains('xp-desktop') || target.closest('.xp-desktop__icons') === target) {
+        icons.forEach(i => i.classList.remove('xp-icon--selected'));
+      }
+    });
+  }
+
+  // Initialize on load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDesktopIcons);
+  } else {
+    initDesktopIcons();
+  }
+</script>

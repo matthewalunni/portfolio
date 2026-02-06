@@ -1,0 +1,35 @@
+---
+import XPDesktopIcon from './XPDesktopIcon.astro';
+
+interface DesktopIcon {
+  id: string;
+  label: string;
+  icon: string;
+  windowId: string;
+}
+
+interface Props {
+  icons?: DesktopIcon[];
+}
+
+const { icons = [] } = Astro.props;
+---
+
+<div class="xp-desktop" role="application" aria-label="Windows XP Desktop">
+  <div class="xp-desktop__icons">
+    {icons.map((icon) => (
+      <XPDesktopIcon
+        id={icon.id}
+        label={icon.label}
+        icon={icon.icon}
+        windowId={icon.windowId}
+      />
+    ))}
+  </div>
+
+  <div class="xp-desktop__windows" id="windows-container">
+    <slot name="windows" />
+  </div>
+
+  <slot />
+</div>

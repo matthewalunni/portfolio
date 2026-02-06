@@ -1,0 +1,330 @@
+/* Windows XP Base Styles */
+@import "./xp-variables.css";
+
+/* Desktop Background */
+.xp-desktop {
+  position: fixed;
+  inset: 0;
+  background: #3a6ea5 url("/portfolio/assets/windows_xp.jpg") center center /
+    cover no-repeat;
+  font-family: var(--xp-font-system);
+  overflow: hidden;
+  user-select: none;
+  padding-bottom: var(--xp-taskbar-height);
+}
+
+/* Desktop icon area */
+.xp-desktop__icons {
+  position: relative;
+  z-index: var(--xp-z-icons);
+  display: grid;
+  grid-template-rows: repeat(auto-fill, 90px);
+  grid-auto-flow: column;
+  grid-auto-columns: 75px;
+  gap: 4px;
+  padding: 8px;
+  align-content: start;
+  height: calc(100vh - var(--xp-taskbar-height));
+}
+
+/* Windows container */
+.xp-desktop__windows {
+  position: absolute;
+  inset: 0;
+  bottom: var(--xp-taskbar-height);
+  pointer-events: none;
+  z-index: var(--xp-z-windows);
+}
+
+.xp-desktop__windows > * {
+  pointer-events: auto;
+}
+
+/* Reset for XP theme */
+.xp-desktop *,
+.xp-desktop *::before,
+.xp-desktop *::after {
+  box-sizing: border-box;
+}
+
+.xp-desktop button {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0 6px;
+  margin: 0;
+}
+
+.xp-desktop a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* XP-style scrollbar */
+.xp-scrollbar::-webkit-scrollbar {
+  width: 17px;
+  height: 17px;
+}
+
+.xp-scrollbar::-webkit-scrollbar-track {
+  background: #f1efe2;
+  border-left: 1px solid var(--xp-button-shadow);
+}
+
+.xp-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--xp-button-face);
+  border: 1px solid;
+  border-color: var(--xp-button-highlight) var(--xp-button-shadow)
+    var(--xp-button-shadow) var(--xp-button-highlight);
+}
+
+.xp-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #d4d0c8;
+}
+
+.xp-scrollbar::-webkit-scrollbar-button {
+  background: var(--xp-button-face);
+  border: 1px solid;
+  border-color: var(--xp-button-highlight) var(--xp-button-shadow)
+    var(--xp-button-shadow) var(--xp-button-highlight);
+  width: 17px;
+  height: 17px;
+}
+
+/* Selection style */
+.xp-desktop ::selection {
+  background: var(--xp-selection-bg);
+  color: var(--xp-selection-text);
+}
+
+/* Focus styles */
+.xp-desktop :focus {
+  outline: 1px dotted var(--xp-text-dark);
+  outline-offset: -1px;
+}
+
+.xp-desktop :focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Screen reader only */
+.xp-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Window open animation */
+@keyframes xp-window-open {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.xp-window:not(.xp-window--hidden):not(.xp-window--minimized) {
+  animation: xp-window-open 0.15s ease-out;
+}
+
+/* Minimize animation */
+@keyframes xp-window-minimize {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8) translateY(100%);
+  }
+}
+
+/* Desktop icon hover glow */
+.xp-icon:hover .xp-icon__image {
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+}
+
+/* Startup loading screen */
+.xp-loading {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  transition: opacity 0.5s ease;
+}
+
+.xp-loading--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.xp-loading__logo {
+  width: 200px;
+  margin-bottom: 24px;
+}
+
+.xp-loading__bar {
+  width: 200px;
+  height: 20px;
+  background: #000;
+  border: 1px solid #333;
+  position: relative;
+  overflow: hidden;
+}
+
+.xp-loading__progress {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  bottom: 2px;
+  width: 0;
+  display: flex;
+  gap: 3px;
+  animation: xp-loading-fill 1.5s ease-in-out forwards;
+}
+
+@keyframes xp-loading-fill {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: calc(100% - 4px);
+  }
+}
+
+.xp-loading__block {
+  width: 12px;
+  height: 100%;
+  background: linear-gradient(180deg, #6699ff 0%, #3366cc 50%, #3366cc 100%);
+  animation: xp-loading-block 1.5s infinite;
+}
+
+@keyframes xp-loading-block {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.xp-loading__text {
+  color: #fff;
+  font-family: var(--xp-font-system);
+  font-size: 11px;
+  margin-top: 12px;
+}
+
+/* Shutdown/Log off overlay */
+.xp-shutdown-overlay {
+  position: fixed;
+  inset: 0;
+  background: #5a7fbe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.xp-shutdown-overlay--active {
+  opacity: 1;
+}
+
+.xp-shutdown-overlay--fadeout {
+  background: #000;
+  transition: background 1s ease;
+}
+
+.xp-shutdown-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.xp-shutdown-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.xp-shutdown-icon {
+  width: 64px;
+  height: 64px;
+  color: #fff;
+  animation: xp-shutdown-pulse 2s ease-in-out infinite;
+}
+
+.xp-shutdown-icon svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+}
+
+@keyframes xp-shutdown-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+.xp-shutdown-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: xp-spinner-rotate 1s linear infinite;
+}
+
+@keyframes xp-spinner-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.xp-shutdown-text {
+  color: #fff;
+  font-family: var(--xp-font-system);
+  font-size: 16px;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  animation: xp-shutdown-text-fade 2s ease-in-out infinite;
+}
+
+@keyframes xp-shutdown-text-fade {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}

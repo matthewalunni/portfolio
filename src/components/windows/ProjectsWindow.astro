@@ -1,0 +1,287 @@
+---
+import XPWindow from '../xp/XPWindow.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('work')).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<XPWindow
+  id="projects"
+  title="My Projects - Windows Explorer"
+  icon="/assets/xp/folder.svg"
+  width={700}
+  height={450}
+  x={100}
+  y={100}
+  isOpen={false}
+  contentClass="xp-window__content--explorer"
+>
+  <div class="explorer">
+    <!-- Toolbar -->
+    <div class="xp-explorer-toolbar">
+      <button class="xp-toolbar-btn" title="Back" disabled>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </button>
+      <button class="xp-toolbar-btn" title="Forward" disabled>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </button>
+      <div class="xp-explorer-toolbar__separator"></div>
+      <button class="xp-toolbar-btn" title="Up">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M8 3V13M3 8L8 3L13 8" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </button>
+      <div class="xp-explorer-toolbar__separator"></div>
+      <button class="xp-toolbar-btn" title="Search">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <circle cx="6" cy="6" r="4" stroke="currentColor" stroke-width="2"/>
+          <path d="M9 9L14 14" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </button>
+      <button class="xp-toolbar-btn" title="Folders">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M2 3h4l2 2h6v8H2V3z"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Address bar -->
+    <div class="xp-explorer-addressbar">
+      <span class="xp-explorer-addressbar__label">Address</span>
+      <div class="address-display">
+        <img src={`${baseUrl}/assets/xp/folder.svg`} alt="" width="16" height="16" />
+        <span>My Projects</span>
+      </div>
+    </div>
+
+    <!-- Main content area -->
+    <div class="xp-explorer-layout">
+      <!-- Sidebar -->
+      <div class="xp-explorer-sidebar">
+        <div class="xp-task-pane">
+          <div class="xp-task-pane__header">
+            <span>File and Folder Tasks</span>
+          </div>
+          <div class="xp-task-pane__body">
+            <button class="xp-task-pane__item" data-window-id="contact">
+              <svg class="xp-task-pane__item-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M2 4l6 4 6-4M2 4v8h12V4H2z" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+              Contact Me
+            </button>
+          </div>
+        </div>
+
+        <div class="xp-task-pane">
+          <div class="xp-task-pane__header">
+            <span>Other Places</span>
+          </div>
+          <div class="xp-task-pane__body">
+            <button class="xp-task-pane__item" data-window-id="about">
+              <img src={`${baseUrl}/assets/xp/user.svg`} alt="" width="16" height="16" />
+              About Me
+            </button>
+            <button class="xp-task-pane__item" data-window-id="welcome">
+              <img src={`${baseUrl}/assets/xp/computer.svg`} alt="" width="16" height="16" />
+              Welcome
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- File grid -->
+      <div class="xp-explorer-content xp-scrollbar">
+        <div class="xp-icon-grid" id="projects-grid">
+          {projects.map((project) => (
+            <button
+              class="xp-file-icon"
+              data-project-id={project.id}
+              tabindex="0"
+            >
+              <img
+                class="xp-file-icon__image"
+                src={`${baseUrl}/assets/xp/folder.svg`}
+                alt=""
+                draggable="false"
+              />
+              <span class="xp-file-icon__label">{project.data.title}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Status bar -->
+    <div class="xp-window__statusbar">
+      <span class="xp-window__statusbar-item">{projects.length} objects</span>
+    </div>
+  </div>
+</XPWindow>
+
+<script>
+  function initProjectsWindow() {
+    const projectIcons = document.querySelectorAll('#projects-grid .xp-file-icon');
+
+    projectIcons.forEach((icon) => {
+      let clickCount = 0;
+      let clickTimer: number | null = null;
+
+      icon.addEventListener('click', () => {
+        clickCount++;
+
+        if (clickCount === 1) {
+          // Single click - select
+          projectIcons.forEach(i => i.classList.remove('xp-file-icon--selected'));
+          icon.classList.add('xp-file-icon--selected');
+
+          clickTimer = window.setTimeout(() => {
+            clickCount = 0;
+          }, 300);
+        } else if (clickCount === 2) {
+          // Double click - open project
+          if (clickTimer) {
+            clearTimeout(clickTimer);
+            clickTimer = null;
+          }
+          clickCount = 0;
+
+          const projectId = (icon as HTMLElement).dataset.projectId;
+          if (projectId) {
+            window.dispatchEvent(new CustomEvent('xp:project:open', {
+              detail: { projectId }
+            }));
+          }
+        }
+      });
+
+      icon.addEventListener('keydown', (e) => {
+        if ((e as KeyboardEvent).key === 'Enter') {
+          const projectId = (icon as HTMLElement).dataset.projectId;
+          if (projectId) {
+            window.dispatchEvent(new CustomEvent('xp:project:open', {
+              detail: { projectId }
+            }));
+          }
+        }
+      });
+    });
+
+    // Sidebar task items
+    const taskItems = document.querySelectorAll('.xp-explorer-sidebar .xp-task-pane__item');
+    taskItems.forEach((item) => {
+      item.addEventListener('click', () => {
+        const windowId = (item as HTMLElement).dataset.windowId;
+        if (windowId) {
+          window.dispatchEvent(new CustomEvent('xp:window:open', {
+            detail: { windowId }
+          }));
+        }
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initProjectsWindow);
+  } else {
+    initProjectsWindow();
+  }
+</script>
+
+<style>
+  .explorer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    font-family: var(--xp-font-system);
+    font-size: 11px;
+  }
+
+  .address-display {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 20px;
+    padding: 0 4px;
+    background: #ffffff;
+    border: 1px solid;
+    border-color: var(--xp-button-shadow) var(--xp-button-highlight) var(--xp-button-highlight) var(--xp-button-shadow);
+  }
+
+  .xp-explorer-layout {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .xp-explorer-sidebar {
+    width: 180px;
+    flex-shrink: 0;
+    padding: 8px;
+    overflow-y: auto;
+  }
+
+  .xp-explorer-content {
+    flex: 1;
+    overflow: auto;
+    background: #ffffff;
+  }
+
+  .xp-icon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+    gap: 8px;
+    padding: 12px;
+    align-content: start;
+  }
+
+  .xp-file-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 4px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    background: none;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .xp-file-icon:hover {
+    background: rgba(100, 150, 200, 0.15);
+    border-color: rgba(100, 150, 200, 0.3);
+  }
+
+  .xp-file-icon:focus,
+  .xp-file-icon--selected {
+    background: var(--xp-selection-bg);
+    border-color: var(--xp-selection-bg);
+    outline: none;
+  }
+
+  .xp-file-icon:focus .xp-file-icon__label,
+  .xp-file-icon--selected .xp-file-icon__label {
+    color: white;
+  }
+
+  .xp-file-icon__image {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 4px;
+  }
+
+  .xp-file-icon__label {
+    font-size: 11px;
+    color: var(--xp-text-dark);
+    word-break: break-word;
+    line-height: 1.3;
+  }
+</style>

@@ -1,0 +1,86 @@
+---
+interface Props {
+  title: string;
+  icon?: string;
+  windowId: string;
+  showMaximize?: boolean;
+}
+
+const { title, icon, windowId, showMaximize = true } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<div class="xp-window__titlebar" data-window-id={windowId}>
+  {icon && (
+    <img
+      class="xp-window__icon"
+      src={`${baseUrl}${icon}`}
+      alt=""
+      draggable="false"
+    />
+  )}
+  <span class="xp-window__title">{title}</span>
+  <div class="xp-window__controls">
+    <button
+      class="xp-window__control-btn xp-window__control-btn--minimize"
+      data-action="minimize"
+      aria-label="Minimize"
+      title="Minimize"
+    >
+      <svg viewBox="0 0 9 9">
+        <line x1="1" y1="7" x2="8" y2="7" />
+      </svg>
+    </button>
+    {showMaximize && (
+      <button
+        class="xp-window__control-btn xp-window__control-btn--maximize"
+        data-action="maximize"
+        aria-label="Maximize"
+        title="Maximize"
+      >
+        <svg viewBox="0 0 9 9">
+          <rect x="1" y="1" width="7" height="7" />
+        </svg>
+      </button>
+    )}
+    <button
+      class="xp-window__control-btn xp-window__control-btn--close"
+      data-action="close"
+      aria-label="Close"
+      title="Close"
+    >
+      <svg viewBox="0 0 9 9">
+        <line x1="1" y1="1" x2="8" y2="8" />
+        <line x1="8" y1="1" x2="1" y2="8" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  /* Restore button icon for maximized state */
+  .xp-window--maximized .xp-window__control-btn--maximize svg {
+    display: none;
+  }
+
+  .xp-window--maximized .xp-window__control-btn--maximize::after {
+    content: '';
+    display: block;
+    width: 7px;
+    height: 7px;
+    border: 1.5px solid white;
+    position: relative;
+  }
+
+  .xp-window--maximized .xp-window__control-btn--maximize::before {
+    content: '';
+    display: block;
+    width: 5px;
+    height: 5px;
+    border: 1.5px solid white;
+    position: absolute;
+    top: 3px;
+    right: 4px;
+    background: transparent;
+  }
+</style>

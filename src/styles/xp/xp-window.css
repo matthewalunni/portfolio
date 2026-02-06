@@ -1,0 +1,291 @@
+/* Windows XP Window Styles */
+
+.xp-window {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  min-height: 150px;
+  background: var(--xp-window-bg);
+  border-radius: var(--xp-window-border-radius);
+  box-shadow: var(--xp-window-shadow);
+  overflow: hidden;
+}
+
+.xp-window--hidden {
+  display: none;
+}
+
+.xp-window--minimized {
+  display: none;
+}
+
+.xp-window--maximized {
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: calc(100vh - var(--xp-taskbar-height)) !important;
+  border-radius: 0;
+}
+
+.xp-window--focused {
+  z-index: calc(var(--xp-z-windows) + 50);
+}
+
+/* Window outer frame - blue border */
+.xp-window::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 3px solid var(--xp-window-border);
+  border-radius: var(--xp-window-border-radius);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.xp-window--inactive::before {
+  border-color: #8ba4c6;
+}
+
+/* Title bar */
+.xp-window__titlebar {
+  display: flex;
+  align-items: center;
+  height: var(--xp-titlebar-height);
+  padding: 3px 5px 3px 6px;
+  background: linear-gradient(
+    180deg,
+    #0a246a 0%,
+    #0f3a9f 8%,
+    #1665d8 20%,
+    #2e8be8 45%,
+    #72ade8 50%,
+    #2e8be8 55%,
+    #0c5bc5 80%,
+    #0a246a 100%
+  );
+  border-radius: 8px 8px 0 0;
+  cursor: default;
+  flex-shrink: 0;
+}
+
+.xp-window--inactive .xp-window__titlebar {
+  background: linear-gradient(
+    180deg,
+    #7a96b8 0%,
+    #8aa8c8 8%,
+    #99b8d8 20%,
+    #b8c8dc 45%,
+    #d0dce8 50%,
+    #b8c8dc 55%,
+    #9ab0c8 80%,
+    #7a96b8 100%
+  );
+}
+
+/* Title bar icon */
+.xp-window__icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
+/* Title text */
+.xp-window__title {
+  flex: 1;
+  font-family: var(--xp-font-titlebar);
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--xp-text-light);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 8px;
+}
+
+.xp-window--inactive .xp-window__title {
+  color: #d4e0f0;
+}
+
+/* Window control buttons container */
+.xp-window__controls {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+/* Base control button styles */
+.xp-window__control-btn {
+  width: var(--xp-control-btn-size);
+  height: var(--xp-control-btn-size);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-bottom-color: rgba(0, 0, 0, 0.3);
+  border-right-color: rgba(0, 0, 0, 0.3);
+}
+
+.xp-window__control-btn:active {
+  border-color: rgba(0, 0, 0, 0.3);
+  border-bottom-color: rgba(255, 255, 255, 0.4);
+  border-right-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Minimize button */
+.xp-window__control-btn--minimize {
+  background: linear-gradient(
+    180deg,
+    #3d8be8 0%,
+    #2070d0 50%,
+    #1858b0 100%
+  );
+}
+
+.xp-window__control-btn--minimize:hover {
+  background: linear-gradient(
+    180deg,
+    #5da8f8 0%,
+    #3890e8 50%,
+    #2878d0 100%
+  );
+}
+
+/* Maximize button */
+.xp-window__control-btn--maximize {
+  background: linear-gradient(
+    180deg,
+    #3d8be8 0%,
+    #2070d0 50%,
+    #1858b0 100%
+  );
+}
+
+.xp-window__control-btn--maximize:hover {
+  background: linear-gradient(
+    180deg,
+    #5da8f8 0%,
+    #3890e8 50%,
+    #2878d0 100%
+  );
+}
+
+/* Close button */
+.xp-window__control-btn--close {
+  background: linear-gradient(
+    180deg,
+    #e89070 0%,
+    #d05040 50%,
+    #b03020 100%
+  );
+}
+
+.xp-window__control-btn--close:hover {
+  background: linear-gradient(
+    180deg,
+    #f8a888 0%,
+    #e86858 50%,
+    #c84838 100%
+  );
+}
+
+/* Control button icons */
+.xp-window__control-btn svg {
+  width: 9px;
+  height: 9px;
+  stroke: var(--xp-text-light);
+  stroke-width: 2;
+  fill: none;
+}
+
+.xp-window__control-btn--close svg {
+  stroke-width: 2.5;
+}
+
+/* Window body */
+.xp-window__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border: 3px solid var(--xp-window-border);
+  border-top: none;
+  border-radius: 0 0 0 0;
+  background: var(--xp-window-bg);
+  overflow: hidden;
+}
+
+.xp-window--inactive .xp-window__body {
+  border-color: #8ba4c6;
+}
+
+/* Window content area */
+.xp-window__content {
+  flex: 1;
+  padding: 8px;
+  overflow: auto;
+  background: #ffffff;
+  border: 2px solid;
+  border-color: var(--xp-button-shadow) var(--xp-button-highlight) var(--xp-button-highlight) var(--xp-button-shadow);
+  margin: 2px;
+}
+
+/* Content with explorer style (no inner white box) */
+.xp-window__content--explorer {
+  padding: 0;
+  background: var(--xp-window-bg);
+  border: none;
+  margin: 0;
+}
+
+/* Status bar */
+.xp-window__statusbar {
+  display: flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 4px;
+  background: var(--xp-button-face);
+  border-top: 1px solid var(--xp-button-highlight);
+  font-size: 11px;
+  color: var(--xp-text-dark);
+}
+
+.xp-window__statusbar-item {
+  padding: 0 8px;
+  border-right: 1px solid var(--xp-button-shadow);
+}
+
+/* Resize handle */
+.xp-window__resize {
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
+  width: 16px;
+  height: 16px;
+  cursor: se-resize;
+  z-index: 10;
+  background:
+    linear-gradient(135deg, transparent 30%, var(--xp-button-shadow) 30%, var(--xp-button-shadow) 35%, transparent 35%),
+    linear-gradient(135deg, transparent 45%, var(--xp-button-shadow) 45%, var(--xp-button-shadow) 50%, transparent 50%),
+    linear-gradient(135deg, transparent 60%, var(--xp-button-shadow) 60%, var(--xp-button-shadow) 65%, transparent 65%);
+}
+
+.xp-window__resize:hover {
+  background:
+    linear-gradient(135deg, transparent 30%, #555 30%, #555 35%, transparent 35%),
+    linear-gradient(135deg, transparent 45%, #555 45%, #555 50%, transparent 50%),
+    linear-gradient(135deg, transparent 60%, #555 60%, #555 65%, transparent 65%);
+}
+
+/* Drag overlay for smooth dragging */
+.xp-window--dragging {
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.xp-window--resizing {
+  pointer-events: none;
+}

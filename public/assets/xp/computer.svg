@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <!-- Monitor -->
+  <rect x="4" y="4" width="40" height="30" rx="2" fill="#e0e0dc" stroke="#333" stroke-width="1.5"/>
+  <rect x="7" y="7" width="34" height="24" fill="#3a6ea5"/>
+
+  <!-- Screen reflection -->
+  <path d="M7 7h17v24H7z" fill="rgba(255,255,255,0.1)"/>
+
+  <!-- Monitor stand -->
+  <rect x="18" y="34" width="12" height="4" fill="#c0c0b8"/>
+  <rect x="14" y="38" width="20" height="4" rx="1" fill="#d0d0c8" stroke="#333" stroke-width="1"/>
+
+  <!-- Power LED -->
+  <circle cx="40" cy="31" r="1.5" fill="#4caf50"/>
+</svg>

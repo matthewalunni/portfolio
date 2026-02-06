@@ -1,0 +1,19 @@
+---
+interface Props {
+  windowId: string;
+  title: string;
+  icon?: string;
+  isActive?: boolean;
+}
+
+const { windowId, title, icon, isActive = false } = Astro.props;
+---
+
+<button
+  class:list={['xp-taskbar-btn', { 'xp-taskbar-btn--active': isActive }]}
+  data-window-id={windowId}
+  title={title}
+>
+  {icon && <img class="xp-taskbar-btn__icon" src={icon} alt="" />}
+  <span class="xp-taskbar-btn__text">{title}</span>
+</button>

@@ -1,0 +1,93 @@
+/* Windows XP Luna Blue Theme Variables */
+:root {
+  /* Luna Blue Primary Colors */
+  --xp-blue-dark: #0a246a;
+  --xp-blue-medium: #245edb;
+  --xp-blue-light: #3a6ea5;
+  --xp-blue-lighter: #4a7dc4;
+  --xp-blue-highlight: #6b9be8;
+
+  /* Title Bar Gradients */
+  --xp-titlebar-active-start: #0a246a;
+  --xp-titlebar-active-mid: #a6caf0;
+  --xp-titlebar-active-end: #0a246a;
+  --xp-titlebar-inactive-start: #7a96b8;
+  --xp-titlebar-inactive-mid: #b8c8dc;
+  --xp-titlebar-inactive-end: #7a96b8;
+
+  /* Window Colors */
+  --xp-window-border: #0054e3;
+  --xp-window-bg: #ece9d8;
+  --xp-window-inner-border: #d4d0c8;
+
+  /* Button Colors */
+  --xp-button-face: #ece9d8;
+  --xp-button-highlight: #ffffff;
+  --xp-button-shadow: #aca899;
+  --xp-button-dark-shadow: #716f64;
+
+  /* Taskbar Colors */
+  --xp-taskbar-start: #1f3f7a;
+  --xp-taskbar-mid: #3168c4;
+  --xp-taskbar-end: #4792eb;
+  --xp-start-btn-start: #388e3c;
+  --xp-start-btn-end: #5bb462;
+
+  /* Desktop Colors */
+  --xp-desktop-bg: #3a6ea5;
+
+  /* Text Colors */
+  --xp-text-dark: #000000;
+  --xp-text-light: #ffffff;
+  --xp-text-disabled: #6d6d6d;
+  --xp-icon-text-shadow: rgba(0, 0, 0, 0.8);
+
+  /* Window Control Button Colors */
+  --xp-close-start: #c93a32;
+  --xp-close-end: #d98982;
+  --xp-close-hover-start: #e04a42;
+  --xp-close-hover-end: #f0a090;
+
+  --xp-minmax-start: #3168c4;
+  --xp-minmax-end: #8eb8e8;
+  --xp-minmax-hover-start: #4a7dc4;
+  --xp-minmax-hover-end: #a6d0f8;
+
+  /* Selection */
+  --xp-selection-bg: #316ac5;
+  --xp-selection-text: #ffffff;
+
+  /* Shadows */
+  --xp-window-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  --xp-inset-shadow: inset 1px 1px 0 var(--xp-button-shadow),
+                     inset -1px -1px 0 var(--xp-button-highlight);
+  --xp-outset-shadow: inset 1px 1px 0 var(--xp-button-highlight),
+                      inset -1px -1px 0 var(--xp-button-shadow);
+
+  /* Borders */
+  --xp-border-radius: 3px;
+  --xp-window-border-radius: 8px 8px 0 0;
+
+  /* Sizing */
+  --xp-titlebar-height: 30px;
+  --xp-taskbar-height: 36px;
+  --xp-icon-size: 48px;
+  --xp-desktop-icon-size: 64px;
+  --xp-control-btn-size: 21px;
+
+  /* Fonts */
+  --xp-font-system: "Segoe UI", Tahoma, sans-serif;
+  --xp-font-titlebar: "Trebuchet MS", sans-serif;
+
+  /* Z-index layers */
+  --xp-z-desktop: 1;
+  --xp-z-icons: 10;
+  --xp-z-windows: 100;
+  --xp-z-taskbar: 1000;
+  --xp-z-startmenu: 1001;
+  --xp-z-modal: 2000;
+
+  /* Transitions */
+  --xp-transition-fast: 0.1s ease;
+  --xp-transition-normal: 0.2s ease;
+}

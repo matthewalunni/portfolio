@@ -1,0 +1,189 @@
+---
+import XPWindow from '../xp/XPWindow.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<XPWindow
+  id="welcome"
+  title="Welcome to Matthew's Portfolio"
+  icon="/assets/xp/notepad.svg"
+  width={500}
+  height={420}
+  x={150}
+  y={80}
+  isOpen={true}
+>
+  <div class="welcome-content">
+    <div class="welcome-header">
+      <img
+        src={`${baseUrl}/assets/xp/computer.svg`}
+        alt=""
+        class="welcome-icon"
+      />
+      <div>
+        <h1>Welcome!</h1>
+        <p class="tagline">Matthew Alunni - Software Engineer</p>
+      </div>
+    </div>
+
+    <div class="welcome-body">
+      <p>
+        Welcome to my interactive Windows XP-themed portfolio! Feel free to explore
+        and learn more about my work and experience.
+      </p>
+
+      <p class="tip-note">
+        💡 <strong>Tip:</strong> For the best experience, view this site in a full screen desktop window.
+      </p>
+
+      <h2>How to Navigate</h2>
+      <ul>
+        <li><strong>Desktop Icons:</strong> Double-click to open windows</li>
+        <li><strong>Windows:</strong> Drag title bars to move, use buttons to minimize/maximize/close</li>
+        <li><strong>Taskbar:</strong> Click buttons to switch between windows</li>
+        <li><strong>Start Menu:</strong> Click "start" for quick navigation</li>
+      </ul>
+
+      <h2>Quick Links</h2>
+      <div class="quick-links">
+        <button class="xp-link" data-window-id="about">
+          About Me
+        </button>
+        <span class="separator">|</span>
+        <button class="xp-link" data-window-id="projects">
+          My Projects
+        </button>
+        <span class="separator">|</span>
+        <button class="xp-link" data-window-id="contact">
+          Contact
+        </button>
+      </div>
+
+      <p class="footer-note">
+        Experienced developer, designer, and creator. Remotely from Canada.
+      </p>
+    </div>
+  </div>
+</XPWindow>
+
+<script>
+  function initWelcomeWindow() {
+    const quickLinks = document.querySelectorAll('.welcome-content .xp-link');
+    quickLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        const windowId = (link as HTMLElement).dataset.windowId;
+        if (windowId) {
+          window.dispatchEvent(new CustomEvent('xp:window:open', {
+            detail: { windowId }
+          }));
+        }
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initWelcomeWindow);
+  } else {
+    initWelcomeWindow();
+  }
+</script>
+
+<style>
+  .welcome-content {
+    font-family: var(--xp-font-system);
+  }
+
+  .welcome-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #d4d0c8;
+  }
+
+  .welcome-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .welcome-header h1 {
+    font-size: 20px;
+    margin: 0 0 4px 0;
+    color: #003399;
+  }
+
+  .tagline {
+    font-size: 12px;
+    color: #666;
+    margin: 0;
+  }
+
+  .welcome-body h2 {
+    font-size: 13px;
+    font-weight: bold;
+    color: #003399;
+    margin: 16px 0 8px 0;
+  }
+
+  .welcome-body p {
+    margin: 0 0 12px 0;
+    line-height: 1.5;
+  }
+
+  .welcome-body ul {
+    margin: 0 0 12px 20px;
+    padding: 0;
+  }
+
+  .welcome-body li {
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+
+  .quick-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0;
+    padding: 10px;
+    background: #f5f5f0;
+    border: 1px solid #d4d0c8;
+  }
+
+  .quick-links .xp-link {
+    background: none;
+    border: none;
+    color: #0066cc;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 0;
+  }
+
+  .quick-links .xp-link:hover {
+    text-decoration: underline;
+  }
+
+  .separator {
+    color: #999;
+  }
+
+  .footer-note {
+    font-style: italic;
+    color: #666;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #d4d0c8;
+  }
+
+  .tip-note {
+    background: #fffbea;
+    border: 1px solid #f0d080;
+    border-radius: 3px;
+    padding: 10px 12px;
+    margin: 12px 0;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+</style>
